@@ -167,7 +167,7 @@
       "id": 11,
       "description": "AI difficulty EASY plays suboptimally (66% optimal, 33% random)",
       "category": "js",
-      "status": "pending",
+      "status": "passing",
       "test_steps": [
         "Navigate to http://localhost:8000/",
         "Select EASY difficulty",
@@ -182,7 +182,7 @@
       "id": 12,
       "description": "AI difficulty HARD plays optimally using minimax algorithm",
       "category": "js",
-      "status": "pending",
+      "status": "passing",
       "test_steps": [
         "Navigate to http://localhost:8000/",
         "Select HARD difficulty",
