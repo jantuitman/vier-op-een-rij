@@ -178,4 +178,87 @@ class HighScoreTest extends TestCase
             $this->assertEquals($difficulty, $highScore->difficulty);
         }
     }
+
+    /**
+     * Test that POST /scores route exists
+     */
+    public function test_post_scores_route_exists(): void
+    {
+        $this->assertTrue(\Illuminate\Support\Facades\Route::has('scores.store'));
+    }
+
+    /**
+     * Test that POST /scores saves high score to database
+     */
+    public function test_post_scores_saves_to_database(): void
+    {
+        $response = $this->post('/scores', [
+            'name' => 'TestPlayer',
+            'turns' => 15,
+            'difficulty' => 'EASY',
+        ]);
+
+        $this->assertDatabaseHas('high_scores', [
+            'name' => 'TestPlayer',
+            'turns' => 15,
+            'difficulty' => 'EASY',
+        ]);
+    }
+
+    /**
+     * Test that POST /scores sets created_at timestamp
+     */
+    public function test_post_scores_sets_created_at(): void
+    {
+        $this->post('/scores', [
+            'name' => 'TestPlayer',
+            'turns' => 15,
+            'difficulty' => 'EASY',
+        ]);
+
+        $highScore = HighScore::where('name', 'TestPlayer')->first();
+        $this->assertNotNull($highScore->created_at);
+    }
+
+    /**
+     * Test that POST /scores redirects to /scores
+     */
+    public function test_post_scores_redirects_to_scores_page(): void
+    {
+        $response = $this->post('/scores', [
+            'name' => 'TestPlayer',
+            'turns' => 15,
+            'difficulty' => 'EASY',
+        ]);
+
+        $response->assertRedirect('/scores');
+    }
+
+    /**
+     * Test that POST /scores validation rejects empty name
+     */
+    public function test_post_scores_validation_rejects_empty_name(): void
+    {
+        $response = $this->post('/scores', [
+            'name' => '',
+            'turns' => 15,
+            'difficulty' => 'EASY',
+        ]);
+
+        $response->assertSessionHasErrors('name');
+    }
+
+    /**
+     * Test that POST /scores validation rejects turns less than 4
+     */
+    public function test_post_scores_validation_rejects_turns_less_than_4(): void
+    {
+        $response = $this->post('/scores', [
+            'name' => 'TestPlayer',
+            'turns' => 3,
+            'difficulty' => 'EASY',
+        ]);
+
+        $response->assertSessionHasErrors('turns');
+    }
 }

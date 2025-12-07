@@ -198,7 +198,7 @@
       "id": 13,
       "description": "High score submission form appears only on player win",
       "category": "ui",
-      "status": "pending",
+      "status": "passing",
       "test_steps": [
         "Navigate to http://localhost:8000/",
         "Select EASY difficulty",
@@ -214,7 +214,7 @@
       "id": 14,
       "description": "POST /scores endpoint saves high score to database",
       "category": "api",
-      "status": "pending",
+      "status": "passing",
       "test_steps": [
         "Verify POST /scores route exists (artisan test)",
         "Submit high score with name='TestPlayer', turns=15, difficulty='EASY' (artisan test)",
