@@ -151,7 +151,7 @@
       "id": 10,
       "description": "Game detects and handles draw condition when board fills up",
       "category": "js",
-      "status": "pending",
+      "status": "passing",
       "test_steps": [
         "Navigate to http://localhost:8000/",
         "Select EASY difficulty",
