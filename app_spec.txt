@@ -1,0 +1,102 @@
+# Vier op een Rij - Connect Four Game
+
+## Overview
+
+A simple Connect Four game where a player competes against an AI opponent. The game includes difficulty selection, gameplay, and a high scores feature.
+
+## Technology Stack
+
+- Laravel 12.x with Blade templates
+- Vanilla JavaScript for game logic and AI
+- Vanilla CSS for styling
+- MariaDB for storing high scores
+
+## Features
+
+### 1. No Authentication Required
+
+The app is publicly accessible without login or registration.
+
+### 2. Home Page / Game Board
+
+- Display a 7x6 grid (7 columns, 6 rows) for the Connect Four board
+- Player uses red discs, AI uses yellow discs
+- Click on a column to drop a disc
+- Visual indication of whose turn it is
+- Game state tracking (in progress, player won, AI won, draw)
+
+### 3. Difficulty Selection
+
+Before starting a game, player chooses difficulty:
+
+- **EASY**: AI plays optimal move 66% of the time, random move 33%
+- **MEDIUM**: AI plays optimal move 90% of the time, random move 10%
+- **HARD**: AI plays optimal move 100% of the time
+
+### 4. AI Opponent
+
+Implemented entirely in JavaScript:
+
+- Minimax algorithm with alpha-beta pruning for optimal move calculation
+- Based on difficulty, sometimes chooses a random valid move instead
+- AI responds after player moves (with small delay for UX)
+
+### 5. Win Detection
+
+- Check for 4 in a row horizontally, vertically, or diagonally
+- Highlight winning discs when game ends
+- Display win/lose/draw message
+
+### 6. High Score Submission (on win only)
+
+When the player wins:
+
+- Show a form to enter their name
+- Record the number of turns it took to win
+- Record the difficulty level
+- Submit via POST to Laravel backend
+- Store in `high_scores` database table
+
+### 7. High Scores Page
+
+A separate tab/page showing:
+
+- List of high scores sorted by fewest turns (ascending)
+- Columns: Rank, Name, Turns, Difficulty, Date
+- Filter by difficulty (optional)
+
+## Database Schema
+
+### Table: high_scores
+
+| Column     | Type         | Description                    |
+|------------|--------------|--------------------------------|
+| id         | bigint       | Primary key                    |
+| name       | varchar(100) | Player name                    |
+| turns      | integer      | Number of turns to win         |
+| difficulty | varchar(10)  | EASY, MEDIUM, or HARD          |
+| created_at | timestamp    | When the score was recorded    |
+| updated_at | timestamp    | Laravel timestamp              |
+
+## Routes
+
+- `GET /` - Home page with game board
+- `POST /scores` - Submit a new high score
+- `GET /scores` - High scores page
+
+## UI/UX Requirements
+
+- Responsive design (works on mobile and desktop)
+- Clear visual feedback for disc drops (animation)
+- Distinct colors for player (red) and AI (yellow)
+- Tab navigation between Game and High Scores
+- Reset/New Game button
+- Current turn indicator
+
+## Game Rules
+
+1. Player always goes first
+2. Discs fall to the lowest available position in a column
+3. First to connect 4 discs horizontally, vertically, or diagonally wins
+4. If board fills up with no winner, it's a draw
+5. Only wins are recorded in high scores (not losses or draws)

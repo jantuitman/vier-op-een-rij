@@ -1,0 +1,335 @@
+{
+  "project_type": "new",
+  "laravel_version": "12.x",
+  "features": [
+    {
+      "id": 1,
+      "description": "Database migration creates high_scores table with correct schema",
+      "category": "database",
+      "status": "passing",
+      "test_steps": [
+        "Run: php artisan migrate",
+        "Verify high_scores table exists (artisan test)",
+        "Verify id column exists as bigint primary key (artisan test)",
+        "Verify name column exists as varchar(100) (artisan test)",
+        "Verify turns column exists as integer (artisan test)",
+        "Verify difficulty column exists as varchar(10) (artisan test)",
+        "Verify created_at and updated_at timestamp columns exist (artisan test)"
+      ]
+    },
+    {
+      "id": 2,
+      "description": "HighScore model has correct fillable fields and validation",
+      "category": "database",
+      "status": "passing",
+      "test_steps": [
+        "Verify HighScore model exists in app/Models (artisan test)",
+        "Verify fillable fields include name, turns, difficulty (artisan test)",
+        "Verify model can be created with valid data (artisan test)",
+        "Verify validation rejects empty name (artisan test)",
+        "Verify validation rejects negative turns (artisan test)",
+        "Verify validation rejects invalid difficulty values (artisan test)"
+      ]
+    },
+    {
+      "id": 3,
+      "description": "Home page route displays game board correctly",
+      "category": "ui",
+      "status": "pending",
+      "test_steps": [
+        "Start Laravel server with: php artisan serve --host=0.0.0.0",
+        "Navigate to http://localhost:8000/",
+        "Verify page loads with 200 status code",
+        "Verify page title contains 'Vier op een Rij' or 'Connect Four'",
+        "Verify 7x6 game board grid is visible",
+        "Verify difficulty selection buttons are visible (EASY, MEDIUM, HARD)",
+        "Take screenshot for verification"
+      ]
+    },
+    {
+      "id": 4,
+      "description": "Difficulty selection initializes game with correct settings",
+      "category": "ui",
+      "status": "pending",
+      "test_steps": [
+        "Navigate to http://localhost:8000/",
+        "Click on EASY difficulty button",
+        "Verify game board becomes interactive",
+        "Verify current turn indicator shows 'Player' or 'Your Turn'",
+        "Click on MEDIUM difficulty button (after reset)",
+        "Verify game initializes correctly",
+        "Click on HARD difficulty button (after reset)",
+        "Verify game initializes correctly",
+        "Take screenshot showing difficulty selection UI"
+      ]
+    },
+    {
+      "id": 5,
+      "description": "Player can click column to drop red disc with visual feedback",
+      "category": "js",
+      "status": "pending",
+      "test_steps": [
+        "Navigate to http://localhost:8000/",
+        "Select EASY difficulty",
+        "Hover over first column and verify visual feedback (highlight or cursor change)",
+        "Click on first column",
+        "Verify red disc appears in bottom row of first column",
+        "Verify disc drop animation plays smoothly",
+        "Click on same column again",
+        "Verify second red disc stacks above first disc",
+        "Take screenshot showing player discs"
+      ]
+    },
+    {
+      "id": 6,
+      "description": "AI responds with yellow disc after player move",
+      "category": "js",
+      "status": "pending",
+      "test_steps": [
+        "Navigate to http://localhost:8000/",
+        "Select EASY difficulty",
+        "Click on column 3 to drop player disc",
+        "Wait for AI response (1-2 seconds delay)",
+        "Verify yellow disc appears in one of the columns",
+        "Verify turn indicator switches back to player",
+        "Make another player move",
+        "Verify AI responds again with yellow disc",
+        "Take screenshot showing both player and AI discs"
+      ]
+    },
+    {
+      "id": 7,
+      "description": "Game detects horizontal win condition correctly",
+      "category": "js",
+      "status": "pending",
+      "test_steps": [
+        "Navigate to http://localhost:8000/",
+        "Select EASY difficulty",
+        "Using Playwright, simulate game moves to create horizontal win for player",
+        "Drop player discs in columns 0, 1, 2, 3 (bottom row)",
+        "Verify winning discs are highlighted or marked",
+        "Verify win message displays 'You Win!' or similar",
+        "Verify game board becomes non-interactive after win",
+        "Verify high score submission form appears",
+        "Take screenshot showing win state"
+      ]
+    },
+    {
+      "id": 8,
+      "description": "Game detects vertical win condition correctly",
+      "category": "js",
+      "status": "pending",
+      "test_steps": [
+        "Navigate to http://localhost:8000/",
+        "Select EASY difficulty",
+        "Using Playwright, simulate game moves to create vertical win",
+        "Drop player discs in same column 4 times (with AI moves in other columns)",
+        "Verify winning discs are highlighted vertically",
+        "Verify win message appears",
+        "Verify high score form is shown",
+        "Take screenshot showing vertical win"
+      ]
+    },
+    {
+      "id": 9,
+      "description": "Game detects diagonal win conditions (both directions)",
+      "category": "js",
+      "status": "pending",
+      "test_steps": [
+        "Navigate to http://localhost:8000/",
+        "Select EASY difficulty",
+        "Simulate diagonal win (ascending: bottom-left to top-right)",
+        "Verify diagonal win is detected and highlighted",
+        "Take screenshot of ascending diagonal win",
+        "Reset game and select EASY again",
+        "Simulate diagonal win (descending: top-left to bottom-right)",
+        "Verify diagonal win is detected and highlighted",
+        "Take screenshot of descending diagonal win"
+      ]
+    },
+    {
+      "id": 10,
+      "description": "Game detects and handles draw condition when board fills up",
+      "category": "js",
+      "status": "pending",
+      "test_steps": [
+        "Navigate to http://localhost:8000/",
+        "Select EASY difficulty",
+        "Simulate moves that fill the entire board without winning",
+        "Verify draw message displays when board is full",
+        "Verify game board becomes non-interactive",
+        "Verify high score form does NOT appear (only wins are recorded)",
+        "Verify 'New Game' or 'Reset' button is available",
+        "Take screenshot showing draw state"
+      ]
+    },
+    {
+      "id": 11,
+      "description": "AI difficulty EASY plays suboptimally (66% optimal, 33% random)",
+      "category": "js",
+      "status": "pending",
+      "test_steps": [
+        "Navigate to http://localhost:8000/",
+        "Select EASY difficulty",
+        "Set up a situation where AI could block player's winning move",
+        "Make multiple games to observe AI behavior",
+        "Verify AI sometimes makes non-optimal moves (doesn't block obvious wins)",
+        "Take screenshot showing AI's suboptimal play",
+        "Note: Full statistical validation would require multiple games"
+      ]
+    },
+    {
+      "id": 12,
+      "description": "AI difficulty HARD plays optimally using minimax algorithm",
+      "category": "js",
+      "status": "pending",
+      "test_steps": [
+        "Navigate to http://localhost:8000/",
+        "Select HARD difficulty",
+        "Set up a situation where player has 3 in a row",
+        "Verify AI blocks the winning move in the 4th position",
+        "Set up situation where AI has 3 in a row",
+        "Verify AI completes its own winning move",
+        "Verify AI makes strategically sound moves throughout game",
+        "Take screenshot showing AI's optimal blocking behavior"
+      ]
+    },
+    {
+      "id": 13,
+      "description": "High score submission form appears only on player win",
+      "category": "ui",
+      "status": "pending",
+      "test_steps": [
+        "Navigate to http://localhost:8000/",
+        "Select EASY difficulty",
+        "Simulate a player win",
+        "Verify high score form appears with name input field",
+        "Verify form shows the number of turns taken",
+        "Verify form shows the difficulty level",
+        "Verify form has a submit button",
+        "Take screenshot of high score submission form"
+      ]
+    },
+    {
+      "id": 14,
+      "description": "POST /scores endpoint saves high score to database",
+      "category": "api",
+      "status": "pending",
+      "test_steps": [
+        "Verify POST /scores route exists (artisan test)",
+        "Submit high score with name='TestPlayer', turns=15, difficulty='EASY' (artisan test)",
+        "Verify record is created in high_scores table (artisan test)",
+        "Verify created_at timestamp is set (artisan test)",
+        "Verify POST returns redirect to /scores or success response (artisan test)",
+        "Verify validation rejects empty name (artisan test)",
+        "Verify validation rejects turns < 4 (minimum possible) (artisan test)"
+      ]
+    },
+    {
+      "id": 15,
+      "description": "GET /scores displays high scores sorted by fewest turns",
+      "category": "ui",
+      "status": "pending",
+      "test_steps": [
+        "Seed database with 5 sample high scores with different turn counts (artisan test)",
+        "Navigate to http://localhost:8000/scores",
+        "Verify page displays high scores table",
+        "Verify columns include Rank, Name, Turns, Difficulty, Date",
+        "Verify scores are sorted by turns ascending (lowest first)",
+        "Verify rank numbers are displayed (1, 2, 3, etc.)",
+        "Take screenshot of high scores page"
+      ]
+    },
+    {
+      "id": 16,
+      "description": "High scores page can filter by difficulty level",
+      "category": "ui",
+      "status": "pending",
+      "test_steps": [
+        "Seed database with scores for EASY, MEDIUM, and HARD difficulties (artisan test)",
+        "Navigate to http://localhost:8000/scores",
+        "Verify filter dropdown or buttons for difficulty are present",
+        "Click on EASY filter",
+        "Verify only EASY difficulty scores are displayed",
+        "Click on HARD filter",
+        "Verify only HARD difficulty scores are displayed",
+        "Click on 'All' or reset filter",
+        "Verify all scores are displayed again",
+        "Take screenshot showing filtered results"
+      ]
+    },
+    {
+      "id": 17,
+      "description": "Tab navigation between Game and High Scores works correctly",
+      "category": "ui",
+      "status": "pending",
+      "test_steps": [
+        "Navigate to http://localhost:8000/",
+        "Verify 'Game' and 'High Scores' navigation tabs/links are visible",
+        "Verify 'Game' tab is active/highlighted on home page",
+        "Click on 'High Scores' tab",
+        "Verify navigation to /scores page",
+        "Verify 'High Scores' tab is now active/highlighted",
+        "Click on 'Game' tab",
+        "Verify navigation back to home page",
+        "Verify 'Game' tab is active again",
+        "Take screenshot showing tab navigation"
+      ]
+    },
+    {
+      "id": 18,
+      "description": "Reset/New Game button reinitializes game state",
+      "category": "js",
+      "status": "pending",
+      "test_steps": [
+        "Navigate to http://localhost:8000/",
+        "Select MEDIUM difficulty",
+        "Make several moves (fill some columns partially)",
+        "Click 'New Game' or 'Reset' button",
+        "Verify game board is cleared (all discs removed)",
+        "Verify difficulty selection reappears or current difficulty is maintained",
+        "Verify turn counter is reset to 0",
+        "Make a move to verify game is functional after reset",
+        "Take screenshot showing reset game board"
+      ]
+    },
+    {
+      "id": 19,
+      "description": "Responsive design works on mobile viewport",
+      "category": "style",
+      "status": "pending",
+      "test_steps": [
+        "Navigate to http://localhost:8000/",
+        "Resize browser to mobile viewport (375x667)",
+        "Verify game board scales appropriately and is fully visible",
+        "Verify difficulty buttons are accessible and properly sized",
+        "Verify columns are still clickable on small screen",
+        "Navigate to /scores page",
+        "Verify high scores table is responsive (scrollable or stacked)",
+        "Take screenshot of mobile game view",
+        "Take screenshot of mobile high scores view"
+      ]
+    },
+    {
+      "id": 20,
+      "description": "Complete end-to-end game flow from start to high score submission",
+      "category": "test",
+      "status": "pending",
+      "test_steps": [
+        "Start Laravel server with: php artisan serve --host=0.0.0.0",
+        "Navigate to http://localhost:8000/",
+        "Take screenshot of initial state",
+        "Select EASY difficulty",
+        "Play a complete game and win (using Playwright to automate moves)",
+        "Verify win message appears",
+        "Enter name 'E2E Test Player' in high score form",
+        "Submit high score form",
+        "Verify redirect to /scores page",
+        "Verify new score appears in high scores list",
+        "Verify score data is correct (name, turns, difficulty, date)",
+        "Take screenshot of final high scores page with new entry",
+        "Query database to confirm record exists (artisan test)"
+      ]
+    }
+  ]
+}
