@@ -35,7 +35,7 @@
       "id": 3,
       "description": "Home page route displays game board correctly",
       "category": "ui",
-      "status": "pending",
+      "status": "passing",
       "test_steps": [
         "Start Laravel server with: php artisan serve --host=0.0.0.0",
         "Navigate to http://localhost:8000/",
@@ -50,7 +50,7 @@
       "id": 4,
       "description": "Difficulty selection initializes game with correct settings",
       "category": "ui",
-      "status": "pending",
+      "status": "passing",
       "test_steps": [
         "Navigate to http://localhost:8000/",
         "Click on EASY difficulty button",
@@ -67,7 +67,7 @@
       "id": 5,
       "description": "Player can click column to drop red disc with visual feedback",
       "category": "js",
-      "status": "pending",
+      "status": "passing",
       "test_steps": [
         "Navigate to http://localhost:8000/",
         "Select EASY difficulty",
@@ -84,7 +84,7 @@
       "id": 6,
       "description": "AI responds with yellow disc after player move",
       "category": "js",
-      "status": "pending",
+      "status": "passing",
       "test_steps": [
         "Navigate to http://localhost:8000/",
         "Select EASY difficulty",

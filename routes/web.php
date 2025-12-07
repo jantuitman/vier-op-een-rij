@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\GameController;
+use App\Http\Controllers\HighScoreController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [GameController::class, 'index'])->name('game.index');
+
+Route::get('/scores', [HighScoreController::class, 'index'])->name('scores.index');
+Route::post('/scores', [HighScoreController::class, 'store'])->name('scores.store');
