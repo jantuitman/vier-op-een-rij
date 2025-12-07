@@ -101,7 +101,7 @@
       "id": 7,
       "description": "Game detects horizontal win condition correctly",
       "category": "js",
-      "status": "pending",
+      "status": "passing",
       "test_steps": [
         "Navigate to http://localhost:8000/",
         "Select EASY difficulty",
