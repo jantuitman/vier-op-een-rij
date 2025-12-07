@@ -29,6 +29,16 @@ class ConnectFourGame {
         if (resetBtn) {
             resetBtn.addEventListener('click', () => this.reset());
         }
+
+        // Skip score button
+        const skipBtn = document.getElementById('skipScoreBtn');
+        if (skipBtn) {
+            skipBtn.addEventListener('click', () => this.hideHighScoreOverlay());
+        }
+    }
+
+    hideHighScoreOverlay() {
+        document.getElementById('highScoreOverlay').style.display = 'none';
     }
 
     startGame(difficulty) {
@@ -43,7 +53,8 @@ class ConnectFourGame {
         // Show game board, hide difficulty selection
         document.getElementById('difficultySelection').style.display = 'none';
         document.getElementById('gameBoardContainer').style.display = 'block';
-        document.getElementById('highScoreForm').style.display = 'none';
+        document.getElementById('highScoreOverlay').style.display = 'none';
+        document.getElementById('fireworksContainer').style.display = 'none';
         document.getElementById('gameMessage').style.display = 'none';
 
         // Update UI
@@ -447,12 +458,21 @@ class ConnectFourGame {
             messageElement.textContent = 'You Win! 🎉';
             gameMessageElement.style.display = 'block';
 
-            // Show high score form
+            // Start fireworks animation
+            this.showFireworks();
+
+            // Prepare high score form data
             document.getElementById('formTurns').value = this.turnCount;
             document.getElementById('formDifficulty').value = this.difficulty;
             document.getElementById('displayTurns').textContent = this.turnCount;
             document.getElementById('displayDifficulty').textContent = this.difficulty;
-            document.getElementById('highScoreForm').style.display = 'block';
+
+            // Show overlay dialog after 2 seconds (fireworks duration)
+            setTimeout(() => {
+                document.getElementById('fireworksContainer').style.display = 'none';
+                document.getElementById('highScoreOverlay').style.display = 'flex';
+                document.getElementById('playerName').focus();
+            }, 2000);
         } else if (winner === 'ai') {
             messageElement.textContent = 'AI Wins! Better luck next time.';
             gameMessageElement.style.display = 'block';
@@ -462,6 +482,19 @@ class ConnectFourGame {
         }
 
         this.updateTurnIndicator();
+    }
+
+    showFireworks() {
+        const container = document.getElementById('fireworksContainer');
+        container.style.display = 'block';
+
+        // Reset animations by removing and re-adding the fireworks
+        const fireworks = container.querySelectorAll('.firework');
+        fireworks.forEach(fw => {
+            fw.style.animation = 'none';
+            fw.offsetHeight; // Trigger reflow
+            fw.style.animation = null;
+        });
     }
 
     updateTurnIndicator() {
@@ -478,7 +511,8 @@ class ConnectFourGame {
     reset() {
         document.getElementById('difficultySelection').style.display = 'block';
         document.getElementById('gameBoardContainer').style.display = 'none';
-        document.getElementById('highScoreForm').style.display = 'none';
+        document.getElementById('highScoreOverlay').style.display = 'none';
+        document.getElementById('fireworksContainer').style.display = 'none';
         document.getElementById('gameMessage').style.display = 'none';
     }
 }

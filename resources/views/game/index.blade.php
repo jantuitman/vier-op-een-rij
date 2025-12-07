@@ -4,6 +4,15 @@
 
 @section('content')
 <div class="game-container">
+    <!-- Fireworks container - shows on win -->
+    <div class="fireworks-container" id="fireworksContainer" style="display: none;">
+        <div class="firework"></div>
+        <div class="firework"></div>
+        <div class="firework"></div>
+        <div class="firework"></div>
+        <div class="firework"></div>
+    </div>
+
     <div class="difficulty-selection" id="difficultySelection">
         <h2>Select Difficulty</h2>
         <div class="difficulty-buttons">
@@ -34,27 +43,32 @@
         </div>
     </div>
 
-    <!-- High Score Submission Form -->
-    <div class="high-score-form" id="highScoreForm" style="display: none;">
-        <h2>Congratulations! You Won!</h2>
-        <p>Submit your score to the leaderboard</p>
-        <form action="{{ route('scores.store') }}" method="POST">
-            @csrf
-            <input type="hidden" name="turns" id="formTurns">
-            <input type="hidden" name="difficulty" id="formDifficulty">
+    <!-- High Score Overlay Dialog -->
+    <div class="overlay" id="highScoreOverlay" style="display: none;">
+        <div class="overlay-dialog" id="highScoreDialog">
+            <h2>🎉 Congratulations! You Won!</h2>
+            <p>Submit your score to the leaderboard</p>
+            <form action="{{ route('scores.store') }}" method="POST">
+                @csrf
+                <input type="hidden" name="turns" id="formTurns">
+                <input type="hidden" name="difficulty" id="formDifficulty">
 
-            <div class="form-group">
-                <label for="playerName">Your Name:</label>
-                <input type="text" id="playerName" name="name" required maxlength="100" placeholder="Enter your name">
-            </div>
+                <div class="form-group">
+                    <label for="playerName">Your Name:</label>
+                    <input type="text" id="playerName" name="name" required maxlength="100" placeholder="Enter your name" autofocus>
+                </div>
 
-            <div class="form-stats">
-                <p>Turns taken: <strong id="displayTurns">-</strong></p>
-                <p>Difficulty: <strong id="displayDifficulty">-</strong></p>
-            </div>
+                <div class="form-stats">
+                    <p>Turns taken: <strong id="displayTurns">-</strong></p>
+                    <p>Difficulty: <strong id="displayDifficulty">-</strong></p>
+                </div>
 
-            <button type="submit" class="btn-submit">Save Score</button>
-        </form>
+                <div class="overlay-buttons">
+                    <button type="submit" class="btn-submit">Save Score</button>
+                    <button type="button" class="btn-skip" id="skipScoreBtn">Skip</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 @endsection
