@@ -18,6 +18,9 @@
                 <a href="{{ route('scores.index') }}" class="nav-link {{ request()->routeIs('scores.index') ? 'active' : '' }}">
                     High Scores
                 </a>
+                <a href="{{ route('info.index') }}" class="nav-link {{ request()->routeIs('info.index') ? 'active' : '' }}">
+                    Info
+                </a>
             </nav>
         </header>
 
@@ -32,7 +35,7 @@
         </main>
 
         <footer>
-            <p>&copy; 2025 Vier op een Rij - Connect Four Game</p>
+            <p>Gebouwd met AI - Powered by Claude Code SDK</p>
         </footer>
     </div>
 </body>

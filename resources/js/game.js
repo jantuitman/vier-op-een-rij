@@ -11,6 +11,7 @@ class ConnectFourGame {
         this.gameOver = false;
         this.turnCount = 0;
         this.winningCells = [];
+        this.lastDroppedCell = null; // Track the last dropped disc position
 
         this.initializeEventListeners();
     }
@@ -37,6 +38,7 @@ class ConnectFourGame {
         this.gameOver = false;
         this.turnCount = 0;
         this.winningCells = [];
+        this.lastDroppedCell = null;
 
         // Show game board, hide difficulty selection
         document.getElementById('difficultySelection').style.display = 'none';
@@ -72,6 +74,14 @@ class ConnectFourGame {
                 if (this.board[row][col] !== 0) {
                     const disc = document.createElement('div');
                     disc.className = `disc ${this.board[row][col] === this.PLAYER ? 'player' : 'ai'}`;
+
+                    // Only animate the last dropped disc
+                    const isLastDropped = this.lastDroppedCell &&
+                        this.lastDroppedCell.row === row &&
+                        this.lastDroppedCell.col === col;
+                    if (!isLastDropped) {
+                        disc.classList.add('no-animation');
+                    }
 
                     // Highlight winning discs
                     if (this.winningCells.some(([r, c]) => r === row && c === col)) {
@@ -109,7 +119,7 @@ class ConnectFourGame {
 
                 setTimeout(() => {
                     this.aiMove();
-                }, 800);
+                }, 1000); // Wait for player's disc animation to finish
             }
         }
     }
@@ -119,6 +129,7 @@ class ConnectFourGame {
         for (let row = this.ROWS - 1; row >= 0; row--) {
             if (this.board[row][col] === 0) {
                 this.board[row][col] = player;
+                this.lastDroppedCell = { row, col }; // Track the dropped position
                 return true;
             }
         }

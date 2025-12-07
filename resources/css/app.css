@@ -218,6 +218,10 @@ main {
     animation: dropDisc 0.5s ease-in;
 }
 
+.disc.no-animation {
+    animation: none;
+}
+
 @keyframes dropDisc {
     0% {
         transform: translateY(-400px);
@@ -464,6 +468,81 @@ main {
 
 .badge-hard {
     background: #f56565;
+}
+
+/* Info Page */
+.info-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.info-section {
+    margin-bottom: 40px;
+}
+
+.info-section h2 {
+    font-size: 1.5rem;
+    color: #667eea;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.info-section h3 {
+    font-size: 1.1rem;
+    color: #4a5568;
+    margin-top: 20px;
+    margin-bottom: 12px;
+}
+
+.info-section p {
+    color: #4a5568;
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+.info-section ul {
+    list-style: disc;
+    margin-left: 25px;
+    color: #4a5568;
+    line-height: 2;
+}
+
+.info-section a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.info-section a:hover {
+    text-decoration: underline;
+}
+
+.info-section code {
+    background: #edf2f7;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.9em;
+    color: #667eea;
+}
+
+.tech-stack {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.tech-item {
+    background: #f7fafc;
+    padding: 15px;
+    border-radius: 8px;
+    color: #4a5568;
+}
+
+.tech-item strong {
+    color: #667eea;
 }
 
 /* Footer */
