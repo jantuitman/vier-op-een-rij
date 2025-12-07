@@ -475,6 +475,6 @@ class ConnectFourGame {
 // Initialize game when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('gameBoard')) {
-        new ConnectFourGame();
+        window.game = new ConnectFourGame();
     }
 });
