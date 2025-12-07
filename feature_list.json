@@ -229,7 +229,7 @@
       "id": 15,
       "description": "GET /scores displays high scores sorted by fewest turns",
       "category": "ui",
-      "status": "pending",
+      "status": "passing",
       "test_steps": [
         "Seed database with 5 sample high scores with different turn counts (artisan test)",
         "Navigate to http://localhost:8000/scores",
@@ -244,7 +244,7 @@
       "id": 16,
       "description": "High scores page can filter by difficulty level",
       "category": "ui",
-      "status": "pending",
+      "status": "passing",
       "test_steps": [
         "Seed database with scores for EASY, MEDIUM, and HARD difficulties (artisan test)",
         "Navigate to http://localhost:8000/scores",
@@ -262,7 +262,7 @@
       "id": 17,
       "description": "Tab navigation between Game and High Scores works correctly",
       "category": "ui",
-      "status": "pending",
+      "status": "passing",
       "test_steps": [
         "Navigate to http://localhost:8000/",
         "Verify 'Game' and 'High Scores' navigation tabs/links are visible",
@@ -280,7 +280,7 @@
       "id": 18,
       "description": "Reset/New Game button reinitializes game state",
       "category": "js",
-      "status": "pending",
+      "status": "passing",
       "test_steps": [
         "Navigate to http://localhost:8000/",
         "Select MEDIUM difficulty",
@@ -297,7 +297,7 @@
       "id": 19,
       "description": "Responsive design works on mobile viewport",
       "category": "style",
-      "status": "pending",
+      "status": "passing",
       "test_steps": [
         "Navigate to http://localhost:8000/",
         "Resize browser to mobile viewport (375x667)",
@@ -314,7 +314,7 @@
       "id": 20,
       "description": "Complete end-to-end game flow from start to high score submission",
       "category": "test",
-      "status": "pending",
+      "status": "passing",
       "test_steps": [
         "Start Laravel server with: php artisan serve --host=0.0.0.0",
         "Navigate to http://localhost:8000/",
