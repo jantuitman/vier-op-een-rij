@@ -17,23 +17,54 @@ class ConnectFourGame {
     }
 
     initializeEventListeners() {
-        // Difficulty selection
+        // Difficulty selection - use both click and touchend for better mobile support
         document.querySelectorAll('.difficulty-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
+            // Prevent double-firing by tracking if touch was used
+            let touchUsed = false;
+
+            btn.addEventListener('touchend', (e) => {
+                e.preventDefault(); // Prevent ghost click
+                touchUsed = true;
                 this.startGame(e.target.dataset.difficulty);
+            });
+
+            btn.addEventListener('click', (e) => {
+                // Only fire click if touch wasn't used
+                if (!touchUsed) {
+                    this.startGame(e.target.dataset.difficulty);
+                }
+                touchUsed = false;
             });
         });
 
-        // Reset button
+        // Reset button - with touch support
         const resetBtn = document.getElementById('resetButton');
         if (resetBtn) {
-            resetBtn.addEventListener('click', () => this.reset());
+            let touchUsed = false;
+            resetBtn.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                touchUsed = true;
+                this.reset();
+            });
+            resetBtn.addEventListener('click', () => {
+                if (!touchUsed) this.reset();
+                touchUsed = false;
+            });
         }
 
-        // Skip score button
+        // Skip score button - with touch support
         const skipBtn = document.getElementById('skipScoreBtn');
         if (skipBtn) {
-            skipBtn.addEventListener('click', () => this.hideHighScoreOverlay());
+            let touchUsed = false;
+            skipBtn.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                touchUsed = true;
+                this.hideHighScoreOverlay();
+            });
+            skipBtn.addEventListener('click', () => {
+                if (!touchUsed) this.hideHighScoreOverlay();
+                touchUsed = false;
+            });
         }
     }
 
@@ -76,9 +107,22 @@ class ConnectFourGame {
                 cell.dataset.row = row;
                 cell.dataset.col = col;
 
-                // Add click listener for column
+                // Add click and touch listeners for column
                 if (!this.gameOver) {
-                    cell.addEventListener('click', () => this.handleCellClick(col));
+                    let touchUsed = false;
+
+                    cell.addEventListener('touchend', (e) => {
+                        e.preventDefault();
+                        touchUsed = true;
+                        this.handleCellClick(col);
+                    });
+
+                    cell.addEventListener('click', () => {
+                        if (!touchUsed) {
+                            this.handleCellClick(col);
+                        }
+                        touchUsed = false;
+                    });
                 }
 
                 // Add disc if present
