@@ -113,6 +113,9 @@ main {
     cursor: pointer;
     transition: all 0.3s ease;
     color: white;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
 }
 
 .difficulty-btn[data-difficulty="EASY"] {
@@ -171,6 +174,8 @@ main {
     cursor: pointer;
     font-weight: bold;
     transition: all 0.3s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .btn-reset:hover {
@@ -199,6 +204,8 @@ main {
     align-items: center;
     justify-content: center;
     position: relative;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .cell:hover:not(.filled) {
@@ -471,6 +478,8 @@ main {
     font-weight: bold;
     cursor: pointer;
     transition: background 0.2s;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .overlay-buttons .btn-submit:hover {
@@ -487,6 +496,8 @@ main {
     font-size: 1rem;
     cursor: pointer;
     transition: background 0.2s;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .overlay-buttons .btn-skip:hover {
@@ -788,9 +799,10 @@ footer {
         grid-template-columns: repeat(7, 50px);
         grid-template-rows: repeat(6, 50px);
         gap: 8px;
+        padding: 15px;
     }
 
-    .cell, .disc {
+    .cell {
         width: 50px;
         height: 50px;
     }
@@ -816,5 +828,97 @@ footer {
     .scores-table th,
     .scores-table td {
         padding: 10px 5px;
+    }
+}
+
+/* Smaller mobile devices */
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+
+    header {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+    header h1 {
+        font-size: 1.5rem;
+    }
+
+    main {
+        padding: 15px;
+    }
+
+    .difficulty-selection {
+        padding: 20px;
+    }
+
+    .difficulty-selection h2 {
+        font-size: 1.5rem;
+    }
+
+    .game-board-container {
+        padding: 10px;
+    }
+
+    .game-board {
+        grid-template-columns: repeat(7, 40px);
+        grid-template-rows: repeat(6, 40px);
+        gap: 5px;
+        padding: 10px;
+    }
+
+    .cell {
+        width: 40px;
+        height: 40px;
+    }
+
+    .disc {
+        width: 34px;
+        height: 34px;
+    }
+
+    .game-info {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .turn-indicator {
+        font-size: 1rem;
+    }
+
+    .btn-reset {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+
+    .overlay-dialog {
+        padding: 25px;
+        margin: 15px;
+    }
+
+    .overlay-dialog h2 {
+        font-size: 1.4rem;
+    }
+}
+
+/* Very small devices */
+@media (max-width: 360px) {
+    .game-board {
+        grid-template-columns: repeat(7, 35px);
+        grid-template-rows: repeat(6, 35px);
+        gap: 4px;
+        padding: 8px;
+    }
+
+    .cell {
+        width: 35px;
+        height: 35px;
+    }
+
+    .disc {
+        width: 29px;
+        height: 29px;
     }
 }
